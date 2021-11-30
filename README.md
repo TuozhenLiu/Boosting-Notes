@@ -101,7 +101,7 @@ Friedman proposes to modify this algorithm so that it chooses a separate optimal
 $$     F_m(x) = F_{m-1}(x) + \sum_{j=1}^{J_{m}} \gamma_{jm} \mathbf {1}_{R_{jm}}(x), \quad
     \gamma_{jm} = \underset{\gamma}{\operatorname{arg\,min}} \sum_{x_i \in R_{jm}} L(y_i, F_{m-1}(x_i) + \gamma). $$
 
-<img src="./gbm.png" width="67%" />
+<img src="Figure/gbm.png" width="67%" />
 
 ## Xgboost
 
@@ -117,15 +117,15 @@ XGBoost works as Newton Raphson in function space unlike gradient boosting that 
 
 A generic unregularized xgboost algorithm is:
 
-<img src="./xgboost2.png" width="100%;" />
+<img src="Figure/xgboost2.png" width="100%;" />
 
 ### Gradient Boosting Formula Derivation
 
-<img src="./xgboost4.png" width="55%;" />
+<img src="Figure/xgboost4.png" width="55%;" />
 
 Note: $g_i,h_i$ is constant for step $t$, only need to be calculated once.
 
-<img src="./xgboost3.png" width="55%" />
+<img src="Figure/xgboost3.png" width="55%" />
 
 Note: $L_{split}$ is calculated for a certain split node with controlling others unchanged, and can be used to evaluate the split candidates.
 
@@ -148,7 +148,7 @@ Note: $L_{split}$ is calculated for a certain split node with controlling others
   - In order to do so efficiently, the algorithm must first sort the data according to feature values and visit the data in sorted order to accumulate the gradient statistics for the structure score.
     - 为了更高效地枚举所有分割方案.(比如样本在某特征为6,3,7,8,2，那么我们分割点取x，需要对每个样本进行判断是否大于x，然后决定分配到左节点还是右节点。而排序后，样本特征为2,3,6,7,8,则直接知道，x左边的分配到左结点，右边的分配到右节点。这样只需要从左到右一遍线性扫描即可。挨个进入退出)
 
-  <img src="./xgboost5.png" width="50%" />
+  <img src="Figure/xgboost5.png" width="50%" />
 
 - Approximate Algorithm
 
@@ -166,9 +166,9 @@ Note: $L_{split}$ is calculated for a certain split node with controlling others
 
   - Local 策略需要更多的计算步骤，而 Global 策略因为节点没有划分所以需要更多的候选点。
 
-  <img src="./xgboost6.png" width="50%" />
+  <img src="Figure/xgboost6.png" width="50%" />
 
-  <img src="./xgboost8.png" width="50%" />
+  <img src="Figure/xgboost8.png" width="50%" />
 
   Note: The **eps** parameter corresponds to the accuracy of the approximate sketch.
 
@@ -182,7 +182,7 @@ Note: $L_{split}$ is calculated for a certain split node with controlling others
   - 数据缺失的处理：本身在节点分类时不考虑特征缺失样本的数值。缺失值数据会被分到左子树和右子树分别计算损失，选择增益大的划分方式。如果训练中没有数据损失，预测时出现了数据损失，那么默认被分类到右子树。
   - 提出的算法将不存在的值视为缺失值并且学习处理缺失值的最佳方向。
 
-  <img src="./xgboost7.png" width="50%" />
+  <img src="Figure/xgboost7.png" width="50%" />
 
 ### Other System Designs
 
